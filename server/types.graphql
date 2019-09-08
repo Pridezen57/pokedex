@@ -1,23 +1,31 @@
-# The following types define the data model of the example service
-# based on which the GraphQL API is generated
+type Pokemon @model {
+  id: ID! @isUnique     # required system field (read-only)
 
-type User @model {
-  id: ID! @isUnique
-  name: String
-  dateOfBirth: DateTime
+  createdAt: DateTime!  # optional system field (read-only)
+  updatedAt: DateTime!  # optional system field (read-only)
 
-  # Uncomment below - you can declare relations between models like this
+  name: String!
+  stats: [Stats!]! @relation(name: "PokemonStats")
 
-  # posts: [Post!]! @relation(name: "UserPosts")
+}
+
+type Stats @model {
+  id: ID! @isUnique     # required system field (read-only)
+
+  createdAt: DateTime!  # optional system field (read-only)
+  updatedAt: DateTime!  # optional system field (read-only)
+
+  evHp: String!
+  evAttack: String!
+  evDefense: String!
+  evSpecialAttack: String!
+  evSpecialDefense: String!
+  evSpeed: String!
+  form: String!
+
+  pokemon: Pokemon! @relation(name: "PokemonStats")
+
+
 }
 
 
-# Uncomment the model below as well
-
-# type Post @model {
-#   id: ID! @isUnique
-#   title: String!
-#
-#   # Every relation also required a back-relation (to determine 1:1, 1:n or n:m)
-#   author: User! @relation(name: "UserPosts")
-# }
