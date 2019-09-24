@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 
 import { Apollo } from "apollo-angular";
+import { Router } from "@angular/router";
+
 import {
   CREATE_POKEMON_MUTATION,
   CreatePokemonMutationResponse
@@ -14,7 +16,7 @@ import {
 export class CreatePokemonComponent implements OnInit {
   name: string = "";
 
-  constructor(private apollo: Apollo) {}
+  constructor(public apollo: Apollo, public router: Router) {}
 
   ngOnInit() {}
 
@@ -26,6 +28,8 @@ export class CreatePokemonComponent implements OnInit {
           name: this.name
         }
       })
-      .subscribe(response => {});
+      .subscribe(response => {
+        this.router.navigate(["/"]);
+      });
   }
 }
