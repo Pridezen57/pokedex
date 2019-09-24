@@ -5,7 +5,7 @@ import { Apollo } from "apollo-angular";
 import { ALL_POKEMONS_QUERY, AllPokemonQueryResponse } from "../graphql";
 
 @Component({
-  selector: "pokemon-list",
+  selector: "app-pokemon-list",
   templateUrl: "./pokemon-list.component.html",
   styleUrls: ["./pokemon-list.component.css"]
 })
