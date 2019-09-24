@@ -1,29 +1,29 @@
-import {Component, OnInit} from '@angular/core';
-import {Pokemon} from '../types';
+import { Component, OnInit } from "@angular/core";
+import { Pokemon } from "../types";
+import { Apollo } from "apollo-angular";
+
+import { ALL_POKEMONS_QUERY, AllPokemonQueryResponse } from "../graphql";
 
 @Component({
-  selector: 'pokemon-list',
-  templateUrl: './pokemon-list.component.html',
-  styleUrls: ['./pokemon-list.component.css']
+  selector: "pokemon-list",
+  templateUrl: "./pokemon-list.component.html",
+  styleUrls: ["./pokemon-list.component.css"]
 })
 export class PokemonListComponent implements OnInit {
-  pokemonToRender: Pokemon[] = [{
-    id: '1',
-    name: 'Bulbasaur',
-    createdAt: '2018-02-08T16:54:37.000Z',
-    updatedAt: '2018-02-08T16:54:37.000Z'
-  },{
-    id: '2',
-    name: 'Charmander',
-    createdAt: '2018-02-08T16:54:37.000Z',
-    updatedAt: '2018-02-08T16:54:37.000Z'
-  }
-  ];
+  allPokemons: Pokemon[] = [];
+  loading: boolean = true;
 
-  constructor() {
-  }
+  constructor(private apollo: Apollo) {}
 
   ngOnInit() {
+    this.apollo
+      .watchQuery({
+        query: ALL_POKEMONS_QUERY
+      })
+      .valueChanges.subscribe(response => {
+        // 5
+        this.allPokemons = response.data.allPokemons;
+        this.loading = response.data.loading;
+      });
   }
-
 }

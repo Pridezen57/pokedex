@@ -1,2 +1,3 @@
-<pokemon-item *ngFor="let pokemon of pokemonToRender" [pokemon]="pokemon">
+<h4 *ngIf="loading">Loading...</h4>
+<pokemon-item *ngFor="let pokemon of allPokemons" [pokemon]="pokemon">
 </pokemon-item>
